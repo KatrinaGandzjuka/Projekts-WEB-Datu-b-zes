@@ -7,15 +7,17 @@ use App\Models\Terpi_tabula;
 
 class AddTerpiController extends Controller
 {
-    function IndexAddTerpi(){
-        return view('addTerpi');
+    function IndexAddTerpi()
+    {
+        return view("addTerpi");
     }
 
-    function TerpiDataInsert(Request $request){
-        $Nosaukums = $request->input('Nosaukums');
-        $Krasa = $request->input('Krasa');
-        $Izmers = $request->input('Izmers');
-        $Attels = $request->file('Attels'); 
+    function TerpiDataInsert(Request $request)
+    {
+        $Nosaukums = $request->input("Nosaukums");
+        $Krasa = $request->input("Krasa");
+        $Izmers = $request->input("Izmers");
+        $Attels = $request->file("Attels");
 
         if ($Attels) {
             $imageData = file_get_contents($Attels->getRealPath());
@@ -23,18 +25,20 @@ class AddTerpiController extends Controller
         } else {
             $base64 = null;
         }
-    
 
         $isTerpiInsertSuccess = Terpi_tabula::insert([
-            'Nosaukums' => $request->input('Nosaukums'),
-            'Krasa' => $request->input('Krasa'),
-            'Izmers' => $request->input('Izmers'),
-            'Attels' => $base64,
+            "Nosaukums" => $request->input("Nosaukums"),
+            "Krasa" => $request->input("Krasa"),
+            "Izmers" => $request->input("Izmers"),
+            "Attels" => $base64,
         ]);
 
-        if($isTerpiInsertSuccess) echo '<script>alert("Jauns kostīms veiksmīgi pievienots ;)");</script>';
-        else echo '<script>alert("Jauns kostīms netika pievienots :(");</script>';
-        return view('addTerpi');
+        if ($isTerpiInsertSuccess) {
+            echo '<script>alert("Jauns kostīms veiksmīgi pievienots ;)");</script>';
+        } else {
+            echo '<script>alert("Jauns kostīms netika pievienots :(");</script>';
+        }
+
+        return view("addTerpi");
     }
 }
-
