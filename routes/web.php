@@ -14,6 +14,7 @@ use App\Http\Controllers\AudzekniGrupasController;
 use App\Http\Controllers\PedagogiGrupasController;
 use App\Http\Controllers\AudzekniKostimiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NumursController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +71,16 @@ Route::post('/dataUpdateGrupas{GrupasNosaukums}', [ViewGrupasController::class, 
 Route::post('/dataUpdateTerpi{KostimiID}', [ViewTerpiController::class, 'DataUpdateTerpi']);
 Route::post('/dataInsertPedagogiGrupas{GrupasNosaukums}', [PedagogiGrupasController::class, 'PedagogiGrupasDataInsert']);
 Route::post('/loginPost', [LoginController::class, 'LoginPost']);
+
+Route::get('/printAudzekniGrupas/{GrupasNosaukums}', [AudzekniGrupasController::class, 'AudzekniGrupasDataPrint'])->name('print.audzekni.grupas');
+
+Route::get('/numurs', [NumursController::class, 'index'])->name('numurs.index');
+Route::get('/numurs/create', [NumursController::class, 'create'])->name('numurs.create');
+Route::post('/numurs', [NumursController::class, 'store'])->name('numurs.store');
+Route::get('/numurs/{numur}/edit', [NumursController::class, 'edit'])->name('numurs.edit');
+Route::put('/numurs/{numur}', [NumursController::class, 'update'])->name('numurs.update');
+Route::delete('/numurs/{numur}', [NumursController::class, 'destroy'])->name('numurs.destroy');
+
+Route::get('/printTerpi', [ViewTerpiController::class, 'PrintTerpi'])->name('terpi.print');
+Route::get('/printAudzeknis/{personasKods}', [ViewLietotajiController::class, 'printAudzeknis'])->name('print.audzeknis');
+

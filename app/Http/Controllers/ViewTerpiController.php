@@ -69,4 +69,11 @@ class ViewTerpiController extends Controller
             ->get();
         return view("viewTerpi", ["TerpiData" => $TerpiData]);
     }
+
+    public function PrintTerpi()
+    {
+    $TerpiData = Terpi_tabula::all();
+    return view("printTerpi", ["TerpiData" => $TerpiData]);
+    }
+
 }

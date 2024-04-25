@@ -51,6 +51,7 @@
       </form>
     </div>
     <div class="container">
+      <a href="{{ route('terpi.print') }}" class="btn btn-primary">Izprintēt sarakstu</a>
       <table class="table">
         <thead>
           <tr>

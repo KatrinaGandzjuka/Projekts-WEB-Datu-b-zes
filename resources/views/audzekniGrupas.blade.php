@@ -57,6 +57,7 @@
       </div>
     </nav>
     <div class="container">
+      <a href="{{ route('print.audzekni.grupas', ['GrupasNosaukums' => $GrupasNosaukums]) }}" class="btn btn-primary mb-3" target="_blank">Izprintēt sarakstu</a>
       <table class="table">
         <thead>
           <tr>

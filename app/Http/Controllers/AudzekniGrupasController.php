@@ -160,4 +160,34 @@ class AudzekniGrupasController extends Controller
             "LomasData" => $LomasData,
         ]);
     }
+    public function AudzekniGrupasDataPrint($GrupasNosaukums)
+    {
+        $LietotajsData = Lietotajs_tabula::whereIn("LomaID", [1])
+            ->whereExists(function ($query) use ($GrupasNosaukums) {
+                $query->select("*")
+                      ->from("audzeknisgrupa")
+                      ->whereRaw("AudzeknaGrupasPersonasKods = personasKods")
+                      ->where("GrupasAudzeknaNosaukums", $GrupasNosaukums);
+            })
+            ->get();
+    
+        $PedagogsData = Lietotajs_tabula::where("LomaID", 3)
+            ->whereExists(function ($query) use ($GrupasNosaukums) {
+                $query->select("*")
+                      ->from("pedagogsgrupa")
+                      ->whereRaw("PedagogaPersonasKods = personasKods")
+                      ->where("GrupasPedagogaNosaukums", $GrupasNosaukums);
+            })
+            ->get(); 
+    
+        $GrupasData = Grupas_tabula::where('GrupasNosaukums', $GrupasNosaukums)->first();
+    
+        return view("printAudzekniGrupas", [
+            "LietotajsData" => $LietotajsData,
+            "PedagogsData" => $PedagogsData, 
+            "GrupasData" => $GrupasData,
+        ]);
+    }
+    
+
 }

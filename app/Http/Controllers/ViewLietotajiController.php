@@ -81,4 +81,16 @@ class ViewLietotajiController extends Controller
         }
         return back()->with(["success" => true]);
     }
+
+    public function printAudzeknis($personasKods)
+{
+    $audzeknis = Lietotajs_tabula::with(['grupas', 'pedagogi', 'vecaki', 'kostimi'])->where('personasKods', $personasKods)->first();
+
+    if (!$audzeknis) {
+        return back()->with('error', 'Audzēknis nav atrasts.');
+    }
+
+    return view('printAudzeknis', ['audzeknis' => $audzeknis]);
+}
+
 }
